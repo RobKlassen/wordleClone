@@ -14,37 +14,30 @@ app.buildInputs = function(currentGuess){
 
     const activeInputs = document.querySelectorAll('input');
     activeInputs.forEach(activeInput => {
-        activeInput.oninput = function(){
-            console.log(activeInput.value)
-            const thisTabIndex = this.tabIndex;
-            const nextTabIndex = thisTabIndex + 1;
-            const nextInput = document.getElementById('inputID'+[nextTabIndex]);
-            nextInput === null ? null : nextInput.focus();
-        }
+        activeInput.addEventListener('keydown',function(e){
+            if (e.key === "Backspace"){
+                // this.value = "";
+                const goBackElement = document.querySelector('.checkLetter'+[this.tabIndex - 1]);
+                goBackElement.focus();
+                // console.log("you went back");
+            }
+        })
+        activeInput.oninput = function(e){
+            if (e.inputType === "deleteContentBackward"){
+                null;
+            } else {
+                // console.log(activeInput.value)
+                const thisTabIndex = this.tabIndex;
+                const nextTabIndex = thisTabIndex + 1;
+                const nextInput = document.getElementById('inputID'+[nextTabIndex]);
+                nextInput === null ? null : nextInput.focus();
+            }
+        }        
+    });
 
-
-
-
-
-
-
-
-        // activeInput.addEventListener('keypress', function(e){
-        //     if (e.code == "Enter"){
-        //         const playerGuessArr = app.letterConcat(currentGuess);
-        //         currentGuess = currentGuess + 5;
-
-
-
-        //         app.checkGuess(playerGuessArr, answerAsArr, currentGuess)
-        //     }
-        // })
-
-
-
-
-        
-    })
+    //puts focus on new line after pressing enter
+    const firstInputInChain = document.querySelector(`.checkLetter`+[currentGuess]);
+    firstInputInChain.focus();
 }
 
 app.letterConcat = function(inputNums){
@@ -73,6 +66,17 @@ app.checkGuess = function(playerGuessArr, answerAsArr, currentGuess){
         return true;
     }
 
+    const markLetter = function(bool, guessedLetter){
+        const letterEl = document.getElementById(`letterID`+guessedLetter);
+        if (bool === true){
+            letterEl.classList.add('letterTrue');
+        }else if (bool === false){
+            letterEl.classList.add('letterFalse');
+        } else {
+            console.log("lololo");
+        }
+    }
+
     let answerGrade = [];
 
     if (playerGuessArr){
@@ -82,13 +86,16 @@ app.checkGuess = function(playerGuessArr, answerAsArr, currentGuess){
                     // console.log(playerGuessArr.indexOf(playerGuessArr[i], i));
                     //make that block green
                     answerGrade.push(2);
+
                 } else {
                     //make that block yellow
                     answerGrade.push(1);
                 }
+                markLetter(true, playerGuessArr[i]);
             } else {
                 // make that block grey
                 answerGrade.push(0);
+                markLetter(false, playerGuessArr[i]);
             }
         }
     }
@@ -131,45 +138,84 @@ app.checkGuess = function(playerGuessArr, answerAsArr, currentGuess){
 
 }
 
-app.getTargetWord = function() {
-    const randomWordGen = function(){
-        let randomWordArr = [];
-        const alphabet = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+app.getTargetWord = async function() {
+    // const randomWordGen = function(){   
+        //=================================================================================
+        // let randomWordArr = [];
+        // const alphabet = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-        for (i = 0; i < 5; i++){
-            const randNum = Math.ceil((Math.random()*26) - 1);
-            const letterToPush = alphabet[randNum];
-            randomWordArr.push(letterToPush);
-        }
-        return randomWordArr;
-        // return ["s","a","s","s","y"]  
-    }
-
-    const answerAsArr = randomWordGen();
+        // for (i = 0; i < 5; i++){
+        //     const randNum = Math.ceil((Math.random()*26) - 1);
+        //     const letterToPush = alphabet[randNum];
+        //     randomWordArr.push(letterToPush);
+        // }
+        // return randomWordArr;
+        // // return ["s","a","s","s","y"]  
+        //=================================================================================
+    // }
+    // const answerAsArr = randomWordGen();
+    
+    const answerAsArr = await app.randomWordAPI(0);
     const checkButton = document.getElementById("submitGuess");
     const targetWordTextEl = document.getElementById("wordToGuess");
     targetWordTextEl.innerText = answerAsArr.join("");
     let currentGuess = 0;
 
-    checkButton.addEventListener('click', function(){
+    const executeAction = function(){
         const playerGuessArr = app.letterConcat(currentGuess);
         currentGuess = currentGuess + 5;
         app.checkGuess(playerGuessArr, answerAsArr, currentGuess)
+    }
+
+    checkButton.addEventListener('click', function(){
+        executeAction();
     });  
-    // checkButton.addEventListener('keydown', function(e){
-    //     // console.log();(e);
-    //     console.log("test");
-    // })
+    document.addEventListener('keydown', function(e){
+        if (e.code == "Enter"){
+            executeAction();
+        }
+    })
 }
 
-// app.inputEventListener = function(){
-    // document.querySelectorAll('input');
-// }
+app.buildLetters = function(){
+    const letterContainerEl = document.querySelector('.letterContainer');
+    const alphabet = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
+    for (i=0; i<alphabet.length; i++){
+        const letterBox = document.createElement('p');
+        letterBox.id = 'letterID'+[alphabet[i]];
+        letterBox.innerText = alphabet[i];
+        letterContainerEl.append(letterBox);
+    }
+    
+}
+
+app.randomWordAPI = async function(counter){
+    counter = counter + 1;
+    console.log("accessing API for the " + counter + " time");    
+    const endpointURL = new URL('https://random-word-api.herokuapp.com/word?number=100');
+    const myObj = await fetch(endpointURL);
+    const jsonData = await myObj.json();
+    let fiveLetterWords = [];
+    
+    jsonData.forEach(pieceOfData => {
+        if (pieceOfData.length === 5){
+            fiveLetterWords.push(pieceOfData);
+        } 
+    })
+    if (fiveLetterWords.length === 0){
+        if (counter < 3){
+            app.randomWordAPI(counter);
+        }
+    } else {
+        const randomWordAsArr = fiveLetterWords[0].split("");
+        return randomWordAsArr;
+    }
+}
 app.init = function(){
     app.getTargetWord();
     app.buildInputs(0);
-    // app.inputEventListener();
+    app.buildLetters();
 }
 
 app.init();

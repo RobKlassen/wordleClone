@@ -15,3 +15,23 @@
         background-color: gray;
     }
 }
+
+.letterContainer{
+    p{
+        color:black;
+        background-color: lightgrey;
+        display:inline-block;
+        width:50px;
+        height:50px;
+        border:solid white 1px
+    }
+    .letterTrue{
+        color:black;
+        background-color: gold;
+    }
+    .letterFalse{
+        color:grey;
+        background-color: black;
+
+    }
+}
