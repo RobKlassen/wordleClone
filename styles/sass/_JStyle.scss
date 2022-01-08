@@ -1,0 +1,17 @@
+.guessContainer{
+    .doesNotContainLetter{
+        background-color: tomato;
+    }
+    
+    .containsLetter{
+        background-color:goldenrod;
+    }
+    
+    .correctLetter{
+        background-color:lightgreen;
+    }
+    .disabledLetter{
+        color:black;
+        background-color: gray;
+    }
+}
