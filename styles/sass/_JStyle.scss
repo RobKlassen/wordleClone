@@ -1,4 +1,4 @@
-.guessContainer{
+main .wrapper .mainContainer .guessContainer{
     .doesNotContainLetter{
         background-color: tomato;
     }
@@ -16,15 +16,7 @@
     }
 }
 
-.letterContainer{
-    p{
-        color:black;
-        background-color: lightgrey;
-        display:inline-block;
-        width:50px;
-        height:50px;
-        border:solid white 1px
-    }
+main .wrapper .mainContainer .letterContainer{
     .letterTrue{
         color:black;
         background-color: gold;
@@ -32,6 +24,9 @@
     .letterFalse{
         color:grey;
         background-color: black;
-
     }
+}
+
+.hiddenElement{
+    display:none;
 }

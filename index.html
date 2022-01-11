@@ -9,22 +9,44 @@
     <title>Document</title>
 </head>
 <body>
+    <header>
+        <div class="wrapper">
+            <h1>Hello Wordle</h1>
+        </div>
+    </header>
+    <main>
+        <div class="wrapper">
+            <div class="mainContainer">
+                
+                <div class="guessContainer">
+                </div>
 
-    <h1>Hello Wordle</h1>
-    <div class="wordToGuessContainer">
-        <p>The Word to guess is:</p>
-        <p id="wordToGuess"></p>
+                <button id="submitGuess" class="submitGuessButton">ENTER</button>
+
+                <div class="letterContainer"></div>
+            </div>
+
+            <div class="answerContainer">
+                <button id="showAnswer" class="showAnswerButton">SHOW ANSWER</button>
+                <div class="wordToGuessContainer">
+                    <!-- <p>The Word to guess is:</p> -->
+                    <p id="wordToGuess" class="wordToGuess"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="wrapper">
+            <p>Coded by Rob Klassen 2022</p>
+            <p>Based on popular internet daily word puzzle: <a href="https://www.powerlanguage.co.uk/wordle/">WORDLE.</a></p>
+        </div>
+    </footer>
+
+    <div id="olVictory" class="overlayVictory hiddenElement">
+        <p>VICTORY!</p>
+        <button id="newGame">New Game</button>
     </div>
-
-    <!-- <input type="text" id="checkThisWord"> -->
-
-    <div class="guessContainer">
-    </div>
-
-    <button id="submitGuess">check</button>
-    <!-- <input type="text" id="testID"> -->
-
-    <div class="letterContainer"></div>
 
 <script src="scripts.js"></script>
 </body>

@@ -1,5 +1,5 @@
 /*----------SETUP----------*/
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display+SC:ital,wght@1,900&family=Josefin+Sans:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 html {
   line-height: 1.15;
   -ms-text-size-adjust: 100%;
@@ -247,54 +247,217 @@ html {
   padding: 0 auto;
   margin: 0 auto;
   font-size: 120%;
-  background-color: black;
+  font-family: "Roboto", sans-serif;
+  background-color: #2d2d2d;
 }
 
-h1 {
-  color: red;
+body {
+  background-color: #2d2d2d;
 }
 
-p {
+.wrapper {
+  margin-left: 10%;
+  margin-right: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+header h1 {
+  margin: 0;
+  padding: 10px;
+  color: #a2c3ff;
+}
+
+main .wrapper {
+  position: relative;
+}
+main .wrapper .mainContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+main .wrapper .mainContainer .guessContainer {
+  min-width: calc((50px * 5) + (2px * 10));
+  max-width: calc((50px * 5) + (2px * 10));
+  margin: 0;
+}
+main .wrapper .mainContainer .guessContainer input {
   color: white;
-}
-
-.guessContainer {
-  max-width: 250px;
-}
-.guessContainer input {
-  color: black;
-  background-color: lightgray;
+  border: none;
+  border-radius: 10px;
+  background-color: #4a4a4a;
   width: 50px;
   height: 50px;
+  margin: 2px;
+  text-align: center;
+}
+main .wrapper .mainContainer .guessContainer input:focus {
+  border: 2px solid #a2c3ff;
+  outline: none;
+  caret-color: transparent;
+}
+main .wrapper .mainContainer .submitGuessButton {
+  width: 200px;
+  height: 50px;
+  border: solid 2px #a2c3ff;
+  border-radius: 5px;
+  color: white;
+  background-color: #164f72;
+  margin: 10px 0;
+}
+main .wrapper .mainContainer .submitGuessButton:hover {
+  -webkit-filter: drop-shadow(0 0 5px lightblue);
+          filter: drop-shadow(0 0 5px lightblue);
+}
+main .wrapper .mainContainer .letterContainer {
+  min-width: 400px;
+  max-width: 400px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+main .wrapper .mainContainer .letterContainer p {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  width: 50px;
+  height: 50px;
+  margin: 2px;
+  padding-top: 15px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  background-color: #4a4a4a;
+  display: inline-block;
+}
+main .wrapper .answerContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+main .wrapper .answerContainer .showAnswerButton {
+  width: 100px;
+  height: 50px;
+  border: solid 2px #a2c3ff;
+  border-radius: 5px;
+  color: white;
+  background-color: #164f72;
+}
+main .wrapper .answerContainer .showAnswerButton:hover {
+  -webkit-filter: drop-shadow(0 0 5px lightblue);
+          filter: drop-shadow(0 0 5px lightblue);
+}
+main .wrapper .answerContainer .wordToGuessContainer .wordToGuess {
+  display: none;
+  color: white;
+  text-align: end;
 }
 
-.guessContainer .doesNotContainLetter {
+footer {
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  bottom: 0;
+  color: white;
+  background-color: #191919;
+}
+
+.overlayVictory {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(45, 45, 45, 0.75);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.overlayVictory p {
+  -webkit-filter: drop-shadow(0 0 30px white);
+          filter: drop-shadow(0 0 30px white);
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 80px;
+  color: white;
+  opacity: 100%;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+main .wrapper .mainContainer .guessContainer .doesNotContainLetter {
   background-color: tomato;
 }
-.guessContainer .containsLetter {
+main .wrapper .mainContainer .guessContainer .containsLetter {
   background-color: goldenrod;
 }
-.guessContainer .correctLetter {
+main .wrapper .mainContainer .guessContainer .correctLetter {
   background-color: lightgreen;
 }
-.guessContainer .disabledLetter {
+main .wrapper .mainContainer .guessContainer .disabledLetter {
   color: black;
   background-color: gray;
 }
 
-.letterContainer p {
-  color: black;
-  background-color: lightgrey;
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  border: solid white 1px;
-}
-.letterContainer .letterTrue {
+main .wrapper .mainContainer .letterContainer .letterTrue {
   color: black;
   background-color: gold;
 }
-.letterContainer .letterFalse {
+main .wrapper .mainContainer .letterContainer .letterFalse {
   color: grey;
   background-color: black;
+}
+
+.hiddenElement {
+  display: none;
 }
